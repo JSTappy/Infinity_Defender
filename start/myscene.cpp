@@ -42,6 +42,16 @@ void MyScene::update(float deltaTime)
 	if (input()->getKeyUp(KeyCode::Escape)) {
 		this->stop();
 	}
+	// ###############################################################
+	// Camera Scaling??
+	// ###############################################################
+	if (input()->getKeyDown(KeyCode::O)) {
+		myentity->scale = Point(0.5f, 0.5f);
+	}if (input()->getKeyDown(KeyCode::P)) {
+		myentity->scale = Point(0.5f, 0.5f);
+	}
+
+
 
 	// ###############################################################
 	// Spacebar scales myentity
@@ -51,6 +61,21 @@ void MyScene::update(float deltaTime)
 	}
 	if (input()->getKeyUp(KeyCode::Space)) {
 		myentity->scale = Point(1.0f, 1.0f);
+	}
+	// ###############################################################
+	// WASD moves the cube
+	// ###############################################################
+	if (input()->getKey(KeyCode::W)) {
+		myentity->position -= Point3(0, 2, 0);
+	}
+	if (input()->getKey(KeyCode::S)) {
+		myentity->position += Point3(0, 2, 0);
+	}
+	if (input()->getKey(KeyCode::A)) {
+		myentity->position -= Point3(2, 0, 0);
+	}
+	if (input()->getKey(KeyCode::D)) {
+		myentity->position += Point3(2, 0, 0);
 	}
 
 	// ###############################################################
