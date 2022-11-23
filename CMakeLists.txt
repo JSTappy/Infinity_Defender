@@ -137,7 +137,22 @@ add_library(rt2d
 	rt2d/timer.h
 	rt2d/util.c
 	rt2d/util.h
-	rt2d/vectorx.h
+	start/Player.h
+	start/Player.cpp
+	start/Enemy.h
+	start/Enemy.cpp
+	start/City.h
+	start/City.cpp
+	start/Attackers.h
+	start/Attackers.cpp
+	start/Interactable.h
+	start/Interactable.cpp
+	start/Rocket.h
+	start/Rocket.cpp
+	start/SmallRocket.h
+	start/SmallRocket.cpp
+	start/LargeRocket.h
+	start/LargeRocket.cpp
 )
 file(
 	COPY ${CMAKE_SOURCE_DIR}/rt2d/shaders
@@ -158,6 +173,22 @@ IF(MAKE_START)
 		start/myentity.h
 		start/myscene.cpp
 		start/myscene.h
+		start/Player.h
+		start/Player.cpp
+		start/Enemy.h
+		start/Enemy.cpp
+		start/City.h
+		start/City.cpp
+		start/Attackers.h
+		start/Attackers.cpp
+		start/Interactable.h
+		start/Interactable.cpp
+		start/Rocket.h
+		start/Rocket.cpp
+		start/SmallRocket.h
+		start/SmallRocket.cpp
+		start/LargeRocket.h
+		start/LargeRocket.cpp
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
