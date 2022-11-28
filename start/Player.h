@@ -9,7 +9,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <rt2d/entity.h>
+#include "Entity.h"
 
  /// @brief The MyEntity class is the Entity implementation.
 class Player : public Entity
@@ -17,8 +17,10 @@ class Player : public Entity
 public:
 	/// @brief Constructor
 	Player();
+
 	/// @brief Destructor
 	virtual ~Player();
+
 
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
@@ -26,6 +28,8 @@ public:
 	virtual void update(float deltaTime);
 
 private:
+
+
 	/* add your private declarations */
 };
 
