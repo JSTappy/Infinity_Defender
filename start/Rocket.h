@@ -27,6 +27,7 @@ public:
 
 private:
 	/* add your private declarations */
+	Timer t;
 };
 
 #endif /* MYENTITY_H */

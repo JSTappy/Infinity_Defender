@@ -19,10 +19,16 @@ MyScene::MyScene() : Scene()
 	// the Sprite is added in Constructor of MyEntity.
 	player = new Player();
 	enemy = new Enemy();
+
+
 	player->position = Point2(SWIDTH/3, SHEIGHT/2);
 	enemy->position = Point2(SWIDTH/4, SHEIGHT/4);
+
+
 	player->scale = Point2(1, 1);
 	enemy->scale = Point2(4, 1);
+
+
 	// create the scene 'tree'
 	// add myentity to this Scene as a child.
 	this->addChild(player);
@@ -49,32 +55,32 @@ void MyScene::update(float deltaTime)
 	if (input()->getKeyUp(KeyCode::Escape)) {
 		this->stop();
 	}
-	
+
 	// ###############################################################
 	// Spacebar scales myentity
 	// ###############################################################
-	
+
 	//if (input()->getKeyDown(KeyCode::Space)) {
 	//	player->scale = Point(0.5f, 0.5f);
 	//}
 	//if (input()->getKeyUp(KeyCode::Space)) {
 	//	player->scale = Point(1.0f, 1.0f);
 	//}
-	
+
 	// ###############################################################
 	// WASD moves the cube
 	// ###############################################################
 	if (input()->getKey(KeyCode::W)) {
-		player->position -= Point3(0, 1, 0);
+		player->position -= Point3(0, 0.2, 0);
 	}
 	if (input()->getKey(KeyCode::S)) {
-		player->position += Point3(0, 1, 0);
+		player->position += Point3(0, 0.2, 0);
 	}
 	if (input()->getKey(KeyCode::A)) {
-		player->position -= Point3(1, 0, 0);
+		player->position -= Point3(0.2, 0, 0);
 	}
 	if (input()->getKey(KeyCode::D)) {
-		player->position += Point3(1, 0, 0);
+		player->position += Point3(0.2, 0, 0);
 	}
 
 	float mx = input()->getMouseX();
@@ -87,15 +93,14 @@ void MyScene::update(float deltaTime)
 
 	// clears previous Debug Draw calls
 	ddClear();
-
 	ddLine(player->position.x, player->position.y, mx, my, GREEN);
 
-	// ###############################################################
-	// Rotate color
-	// ###############################################################
-	//if (t.seconds() > 0.0333f) {
-	//	RGBAColor color = player->sprite()->color;
-	//	player->sprite()->color = Color::rotate(color, 0.01f);
-	//	t.start();
-	//}
+	
+	if (input()->getMouse(0)) {
+		rocket = new Rocket();
+		rocket->position = player->position;
+		rocket->rotation.z = angle;
+		this->addChild(rocket);
+	}
+
 }

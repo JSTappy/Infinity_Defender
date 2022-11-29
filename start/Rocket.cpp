@@ -8,8 +8,10 @@
 
 Rocket::Rocket() : Entity()
 {
-	this->addSprite("assets/square.tga");
+	t.start();
+	this->addSprite("assets/Rocket.tga");
 	this->sprite()->color = RED;
+	this->scale = Point3(5, 5, 5);
 }
 
 Rocket::~Rocket()
@@ -19,11 +21,12 @@ Rocket::~Rocket()
 
 void Rocket::update(float deltaTime)
 {
-	// ###############################################################
-	// Rotate
-	// ###############################################################
-	this->rotation.z += HALF_PI * deltaTime; // 90 deg/sec
-	if (this->rotation.z > TWO_PI) {
-		this->rotation.z -= TWO_PI;
-	}
+	/*Acceleration = thrustForce * new Vector2((float)Cos(Rotation), (float)Math.Sin(Rotation));*/
+	this->position += Point2(100,100) * Point2(cos(this->rotation.z), sin(this->rotation.z)) * deltaTime;
+
+		if (t.seconds() > 0.00333f) {
+			RGBAColor color = this->sprite()->color;
+			this->sprite()->color = Color::rotate(color, 0.01f);
+			t.start();
+		}
 }

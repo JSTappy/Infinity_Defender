@@ -10,6 +10,7 @@
 #define PLAYER_H
 
 #include "Entity.h"
+#include "Rocket.h"
 
  /// @brief The MyEntity class is the Entity implementation.
 class Player : public Entity
@@ -17,7 +18,6 @@ class Player : public Entity
 public:
 	/// @brief Constructor
 	Player();
-
 	/// @brief Destructor
 	virtual ~Player();
 
@@ -28,7 +28,7 @@ public:
 	virtual void update(float deltaTime);
 
 private:
-
+	Rocket* rocket;
 
 	/* add your private declarations */
 };
