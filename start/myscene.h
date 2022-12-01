@@ -29,6 +29,7 @@ public:
 	/// @return void
 	virtual void update(float deltaTime);
 	float angle;
+	std::vector <Rocket*> rockets;
 
 private:
 	/// @brief the rotating square in the middle of the screen

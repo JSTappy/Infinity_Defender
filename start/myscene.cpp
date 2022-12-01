@@ -57,30 +57,19 @@ void MyScene::update(float deltaTime)
 	}
 
 	// ###############################################################
-	// Spacebar scales myentity
-	// ###############################################################
-
-	//if (input()->getKeyDown(KeyCode::Space)) {
-	//	player->scale = Point(0.5f, 0.5f);
-	//}
-	//if (input()->getKeyUp(KeyCode::Space)) {
-	//	player->scale = Point(1.0f, 1.0f);
-	//}
-
-	// ###############################################################
 	// WASD moves the cube
 	// ###############################################################
 	if (input()->getKey(KeyCode::W)) {
-		player->position -= Point3(0, 0.2, 0);
+		player->position -= Point3(0, 0.4, 0);
 	}
 	if (input()->getKey(KeyCode::S)) {
-		player->position += Point3(0, 0.2, 0);
+		player->position += Point3(0, 0.4, 0);
 	}
 	if (input()->getKey(KeyCode::A)) {
-		player->position -= Point3(0.2, 0, 0);
+		player->position -= Point3(0.4, 0, 0);
 	}
 	if (input()->getKey(KeyCode::D)) {
-		player->position += Point3(0.2, 0, 0);
+		player->position += Point3(0.4, 0, 0);
 	}
 
 	float mx = input()->getMouseX();
@@ -101,6 +90,17 @@ void MyScene::update(float deltaTime)
 		rocket->position = player->position;
 		rocket->rotation.z = angle;
 		this->addChild(rocket);
+		rockets.push_back(rocket);
+
+	}
+
+	for (int i = rockets.size() - 1; i >= 0; i--) { // backwards!!!
+		if (rockets[i]->position.x > SWIDTH || rockets[i]->position.x < 0 || rockets[i]->position.y < 0 || rockets[i]->position.y > SHEIGHT) {
+			this->removeChild(rockets[i]);
+			delete rockets[i];
+			rockets.erase(rockets.begin() + i);
+			std::cout << "delete rocket" << std::endl;
+		}
 	}
 
 }
