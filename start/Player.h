@@ -25,10 +25,16 @@ public:
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
+
 	virtual void update(float deltaTime);
+	virtual void TakeDamage(int damage);
+	std::vector <Rocket*> rockets;
 
 private:
 	Rocket* rocket;
+	float angle;
+	int health;
+	int maxHealth;
 
 	/* add your private declarations */
 };

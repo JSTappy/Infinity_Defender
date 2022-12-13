@@ -11,9 +11,12 @@
 
 #include <rt2d/scene.h>
 
+#include "MyEntity.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "City.h"
 #include "Rocket.h"
+#include "Spawner.h"
 
 /// @brief The MyScene class is the Scene implementation.
 class MyScene : public Scene
@@ -36,6 +39,13 @@ private:
 	Player* player;
 	Enemy* enemy;
 	Rocket* rocket;
+	City* city;
+	Spawner* rightSpawner;
+	Spawner* leftSpawner;
+	Spawner* topSpawner;
+	Spawner* bottomSpawner;
+	MyEntity* background;
+
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;
 };

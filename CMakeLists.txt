@@ -165,6 +165,8 @@ IF(MAKE_START)
 		start/City.cpp
 		start/Rocket.h
 		start/Rocket.cpp
+		start/Spawner.cpp
+		start/Spawner.h
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
