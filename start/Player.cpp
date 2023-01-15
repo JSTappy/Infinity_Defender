@@ -25,28 +25,22 @@ Player::~Player()
  
 }
 
-void Player::TakeDamage(int damage)
-{
-	health -= damage;
-}
-
 void Player::update(float deltaTime)
 {
-	/*Rectangle rect1 = Rectangle(player->position.x, player->position.y, 64, 64);*/
 // ###############################################################
 // WASD moves the player
 // ###############################################################
 	if (input()->getKey(KeyCode::W)) {
-		this->position -= Point2(0, 0.2);
+		this->position -= Point2(0, 0.3);
 	}
 	if (input()->getKey(KeyCode::S)) {
-		this->position += Point2(0, 0.2);
+		this->position += Point2(0, 0.3);
 	}
 	if (input()->getKey(KeyCode::A)) {
-		this->position -= Point2(0.2, 0);
+		this->position -= Point2(0.3, 0);
 	}
 	if (input()->getKey(KeyCode::D)) {
-		this->position += Point2(0.2, 0);
+		this->position += Point2(0.3, 0);
 	}
 	float mx = input()->getMouseX();
 	float my = input()->getMouseY();
