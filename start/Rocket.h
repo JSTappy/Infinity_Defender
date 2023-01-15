@@ -1,20 +1,23 @@
-/**
- * Copyright 2015 Your Name <you@yourhost.com>
- *
- * @file myentity.h
- *
- * @brief description of MyEntity behavior.
- */
+/*****************************************************************//**
+ * \file   Rocket.h
+ * \brief  
+ * 
+ * \author Joas Sahetapy
+ * \date   January 2023
+ *********************************************************************/
 
 #ifndef ROCKET_H
 #define ROCKET_H
 
 #include "Entity.h"
+#include "Enemy.h"
+
 
  /// @brief The MyEntity class is the Entity implementation.
 class Rocket : public Entity
 {
 public:
+	bool dead;
 	/// @brief Constructor
 	Rocket();
 	/// @brief Destructor

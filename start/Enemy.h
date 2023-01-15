@@ -1,11 +1,11 @@
 #pragma once
-/**
- * Copyright 2015 Your Name <you@yourhost.com>
- *
- * @file myentity.h
- *
- * @brief description of MyEntity behavior.
- */
+/*****************************************************************//**
+ * \file   Enemy.h
+ * \brief  
+ * 
+ * \author Joas Sahetapy
+ * \date   January 2023
+ *********************************************************************/
 
 #ifndef ENEMY_H
 #define ENEMY_H
@@ -21,19 +21,17 @@ public:
 	Enemy(City* _city);
 	/// @brief Destructor
 	virtual ~Enemy();
+	int health;
 
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
-	virtual void TakeDamage(int damage);
 
 private:
 	/* add your private declarations */
 	City* _city;
-	float cityangle;
-	int health;
-	int maxHealth;
+	float targetangle;
 
 };
 

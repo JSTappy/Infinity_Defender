@@ -1,12 +1,14 @@
-/**
- * This class describes MyEntity behavior.
- *
- * Copyright 2015 Your Name <you@yourhost.com>
- */
+/*****************************************************************//**
+ * \file   myentity.cpp
+ * \brief  
+ * 
+ * \author Joas Sahetapy
+ * \date   January 2023
+ *********************************************************************/
 
 #include "myentity.h"
 
-MyEntity::MyEntity() : Entity()
+MyEntity::MyEntity() : Entity() 
 {
 	t.start();
 	this->addSprite("assets/background.tga");

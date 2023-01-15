@@ -1,10 +1,10 @@
-/**
- * Copyright 2015 Your Name <you@yourhost.com>
- *
- * @file myscene.h
- *
- * @brief description of MyScene behavior.
- */
+/*****************************************************************//**
+ * \file   myscene.h
+ * \brief  
+ * 
+ * \author Joas Sahetapy
+ * \date   January 2023
+ *********************************************************************/
 
 #ifndef MYSCENE_H
 #define MYSCENE_H
@@ -31,13 +31,15 @@ public:
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
-	float angle;
-	std::vector <Rocket*> rockets;
+	
 
 private:
 	/// @brief the rotating square in the middle of the screen
+	std::vector <Rocket*> rockets;
+	std::vector <Enemy*> enemies;
+	std::vector <Spawner*> spawners;
+
 	Player* player;
-	Enemy* enemy;
 	Rocket* rocket;
 	City* city;
 	Spawner* rightSpawner;
@@ -45,6 +47,8 @@ private:
 	Spawner* topSpawner;
 	Spawner* bottomSpawner;
 	MyEntity* background;
+
+	float angle;
 
 	/// @brief a Timer to rotate the color every n seconds
 	Timer t;

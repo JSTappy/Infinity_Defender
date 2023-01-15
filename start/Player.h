@@ -1,10 +1,10 @@
-/**
- * Copyright 2015 Your Name <you@yourhost.com>
- *
- * @file myentity.h
- *
- * @brief description of MyEntity behavior.
- */
+/*****************************************************************//**
+ * \file   Player.h
+ * \brief  
+ * 
+ * \author Joas Sahetapy
+ * \date   January 2023
+ *********************************************************************/
 
 #ifndef PLAYER_H
 #define PLAYER_H
@@ -27,7 +27,6 @@ public:
 	/// @return void
 
 	virtual void update(float deltaTime);
-	virtual void TakeDamage(int damage);
 	std::vector <Rocket*> rockets;
 
 private:

@@ -1,10 +1,10 @@
-/**
- * Copyright 2015 Your Name <you@yourhost.com>
- *
- * @file myentity.h
- *
- * @brief description of MyEntity behavior.
- */
+/*****************************************************************//**
+ * \file   Spawner.h
+ * \brief  
+ * 
+ * \author Joas Sahetapy
+ * \date   January 2023
+ *********************************************************************/
 
 #ifndef SPAWNER_H
 #define SPAWNER_H
@@ -27,6 +27,7 @@ public:
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
 	virtual void update(float deltaTime);
+	std::vector <Enemy*> enemies;
 
 private:
 	Enemy* enemy;
