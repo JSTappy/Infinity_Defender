@@ -19,15 +19,21 @@ MyScene::MyScene() : Scene()
 	// start the timer.
 	t.start();
 
-	// create a single instance of MyEntity in the middle of the screen.
-	// the Sprite is added in Constructor of MyEntity.
-	background = new MyEntity();
+	layer0 = new MyEntity(); //the background layer
+	layer1 = new MyEntity(); //the layer of everything
+	layer2 = new MyEntity(); //the layer of text
+
+
 	player = new Player();
 	city = new City();
+
 	rightSpawner = new Spawner(city);
 	leftSpawner = new Spawner(city);
 	topSpawner = new Spawner(city);
 	bottomSpawner = new Spawner(city);
+
+	wavetext = new Text();
+	cityhealth = new Text();
 
 	spawners.push_back(leftSpawner);
 	spawners.push_back(rightSpawner);
@@ -36,68 +42,82 @@ MyScene::MyScene() : Scene()
 
 
 	player->position = Point2(SWIDTH / 3, SHEIGHT / 2);
-	background->position = Point2(SWIDTH / 2, SHEIGHT / 2);
 	city->position = Point2(SWIDTH / 2, SHEIGHT / 2);
 	rightSpawner->position = Point2(1500, 0);
 	leftSpawner->position = Point2(-1500, 0);
 	topSpawner->position = Point2(0, 1000);
 	bottomSpawner->position = Point2(0, -1000);
 
-
-	background->scale = Point2(2, 2);
 	player->scale = Point2(0.5, 0.5);
 	city->scale = Point2(2, 2);
 
+	cityHealth = 0;
 	city->health = 20;
 
+	layer0->addSprite("assets/background.tga");
+	layer0->scale = Point2(7, 1.5);
+
+	/*waves and text of Wave*/
+	currentWave = 0;
+	wavetext->message("Wave: 1", YELLOW);
+	wavetext->scale = Point2(0.5f, 0.5f);
+	wavetext->position = Point2(SWIDTH / 2 - 50, 20);
+
+	cityhealth->message("City Health: 0", GREEN);
+	cityhealth->scale = Point2(0.5f, 0.5f);
+	cityhealth->position = Point2(20, 20);
+	
 
 	// create the scene 'tree'
 	// add myentity to this Scene as a child.
-	this->addChild(background);
-	this->addChild(player);
-	this->addChild(city);
-	this->addChild(rightSpawner);
-	this->addChild(leftSpawner);
-	this->addChild(topSpawner);
-	this->addChild(bottomSpawner);
+	this->addChild(layer0);
+	this->addChild(layer1);
+	this->addChild(layer2);
+	layer1->addChild(city);
+	layer1->addChild(player);
+	layer1->addChild(rightSpawner);
+	layer1->addChild(leftSpawner);
+	layer1->addChild(topSpawner);
+	layer1->addChild(bottomSpawner);
+	layer2->addChild(wavetext);
+	layer2->addChild(cityhealth);
 }
 
 MyScene::~MyScene()
 {
 	// deconstruct and delete the Tree
-	this->removeChild(player);
-	this->removeChild(background);
-	this->removeChild(city);
-	this->removeChild(rightSpawner);
-	this->removeChild(leftSpawner);
-	this->removeChild(topSpawner);
-	this->removeChild(bottomSpawner);
+	this->removeChild(layer0);
+	this->removeChild(layer1);
+	this->removeChild(layer2);
+	layer1->removeChild(city);
+	layer1->removeChild(player);
+	layer1->removeChild(rightSpawner);
+	layer1->removeChild(leftSpawner);
+	layer1->removeChild(topSpawner);
+	layer1->removeChild(bottomSpawner);
+	layer2->removeChild(wavetext);
+	layer2->removeChild(cityhealth);
 
 	// delete myentity from the heap (there was a 'new' in the constructor)
-
+	delete layer0;
+	delete layer1;
+	delete layer2;
 	delete player;
 	delete city;
 	delete rightSpawner;
-	delete background;
 	delete leftSpawner;
 	delete topSpawner;
 	delete bottomSpawner;
+	delete wavetext;
+	delete cityhealth;
 }
 
 void MyScene::update(float deltaTime)
-{
-	// ###############################################################
-	// Escape key stops the Scene
-	// ###############################################################
-	if (input()->getKeyUp(KeyCode::Escape)) {
-		this->stop();
-	}
-
-	//for loop that makes i go down from player rockets size to zero
+{	
 	for (int i = player->rockets.size() - 1; i >= 0; i--) { // backwards!!!
 		Rocket* rocket = player->rockets[i]; // make the player rocket list into a local variable so its easier to type out
-		for (int e = spawners.size() - 1; e >= 0; e--) { //for loop that makes i go down from player rockets sixe to zero
-			for (int i = spawners[e]->enemies.size() - 1; i >= 0; i--) { //for loop that makes i go down from player rockets sixe to zero
+		for (int e = spawners.size() - 1; e >= 0; e--) { 
+			for (int i = spawners[e]->enemies.size() - 1; i >= 0; i--) { 
 				Enemy* enemy = spawners[e]->enemies[i]; // make a local variable from the enemies from the spawners so its easier to type out
 
 				/*
@@ -109,12 +129,13 @@ void MyScene::update(float deltaTime)
 					if (rocket->position.x > SWIDTH || rocket->position.x < 0 || rocket->position.y < 0 || rocket->position.y > SHEIGHT) {
 						rocket->dead = true;
 					}
+					//make an if statement that checks if the rocket is colliding with the enemy
 					if (Vector2(rocket->position.x - enemy->position.x, rocket->position.y - enemy->position.y).getLengthSquared() < 32 * 32) {
-						enemy->health -= 1;
 						rocket->dead = true;
+						enemy->health -= 1;
 					}
 					if (enemy->health <= 0){ // if the enemy health is smaller than or equal to 0 then remove the enemy from the scene and from the memory
-						this->removeChild(enemy);
+						layer1->removeChild(enemy);
 						delete enemy;
 						enemy = nullptr;
 						spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
@@ -122,22 +143,53 @@ void MyScene::update(float deltaTime)
 				}
 			}
 		}
-		//remove the rockets from the scene and the memory
+			//remove the rockets from the scene and the memory
 			if (rocket->dead && rocket != nullptr) {
-				this->removeChild(rocket);
+				layer1->removeChild(rocket);
 				delete rocket;
 				rocket = nullptr;
 				player->rockets.erase(player->rockets.begin() + i);
-				std::cout << "delete rockets" << std::endl;
 			}
 	}
-	for (int e = spawners.size() - 1; e >= 0; e--) { //for loop that makes i go down from player rockets size to zero
-		for (int i = spawners[e]->enemies.size() - 1; i >= 0; i--) { //for loop that makes i go down from player rockets size to zero
+	for (int e = spawners.size() - 1; e >= 0; e--) { 
+		for (int i = spawners[e]->enemies.size() - 1; i >= 0; i--) { 
 			Enemy* enemy = spawners[e]->enemies[i];  // make the player rocket list into a local variable so its easier to type out
-			if (enemy != nullptr && city != nullptr) { //if the enemy is there and if the city is there
+
+			if (spawners[e]->enemies.size() == 0) {
+
+				spawners[e]->spawnWave();
+				spawners[e]->wave += 1;
+				spawners[e]->lobstersPerWave += 1;
+				spawners[e]->eelsPerWave += 2;
+				spawners[e]->anglerfishPerWave += 1;
+
+				std::cout << this->position << " Currentwave = " << spawners[e]->wave << std::endl;
+				std::cout << this->position << " lobsterperwave = " << spawners[e]->lobstersPerWave << std::endl;
+				std::cout << this->position << " eelsperwave = " << spawners[e]->eelsPerWave << std::endl;
+				std::cout << this->position << " anglerfishperwave = " << spawners[e]->anglerfishPerWave << std::endl;
+			}
+
+			currentWave = spawners[e]->wave;
+			cityHealth = city->health;
+
+			std::string prefix = "Wave: ";
+			std::ostringstream fullString;
+			fullString << prefix << currentWave;
+			wavetext->message(fullString.str(), YELLOW);
+
+			std::string prefix2 = "City Health: ";
+			std::ostringstream fullString2;
+			fullString2 << prefix2 << cityHealth;
+			cityhealth->message(fullString2.str(), GREEN);
+
+
+			/*
+			If the enemy touches the city, remove the enemy and make the city take 1 damage
+			*/
+			if (enemy != nullptr && city != nullptr) { 
 				if (Vector2(city->position.x - enemy->position.x, city->position.y - enemy->position.y).getLengthSquared() < 64 * 64) {
 					city->health -= 1;
-					this->removeChild(enemy);
+					layer1->removeChild(enemy);
 					delete enemy;
 					enemy = nullptr;
 					spawners[e]->enemies.erase(spawners[e]->enemies.begin() + i);
@@ -145,9 +197,9 @@ void MyScene::update(float deltaTime)
 			}
 		}
 	}
+
+	//Remove the city when its HP has reached 0
 	if (city != nullptr && city->health <= 0) {
-		this->removeChild(city);
-		delete city;
-		city = nullptr;
+		this->stop();
 	}
 }

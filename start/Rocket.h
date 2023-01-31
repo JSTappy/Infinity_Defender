@@ -13,10 +13,13 @@
 #include "Enemy.h"
 
 
- /// @brief The MyEntity class is the Entity implementation.
+ /// @brief The Rocket implementation.
 class Rocket : public Entity
 {
 public:
+	/// <summary>
+	/// checks if the rocket can be deleted or not
+	/// </summary>
 	bool dead;
 	/// @brief Constructor
 	Rocket();

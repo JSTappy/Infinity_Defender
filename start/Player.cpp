@@ -10,8 +10,7 @@
 
 Player::Player() : Entity()
 {
-	maxHealth = 3;
-	this->addSprite("assets/square.tga");
+	this->addSprite("assets/player.tga");
 	this->sprite()->color = YELLOW;
 	
 }
@@ -48,11 +47,16 @@ void Player::update(float deltaTime)
 
 
 	if (input()->getMouseDown(0)) {
-		rocket = new Rocket();
-		rocket->position = this->position;
-		rocket->rotation.z = angle;
-		this->addChild(rocket);
-		this->parent()->addChild(rocket);
-		rockets.push_back(rocket);
+		Shoot();
 	}
 }
+
+void Player::Shoot() {
+	rocket = new Rocket();
+	rocket->position = this->position;
+	rocket->rotation.z = angle;
+	this->parent()->addChild(rocket);
+	rockets.push_back(rocket);
+}
+
+

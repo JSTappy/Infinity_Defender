@@ -10,7 +10,7 @@
 
 City::City() : Entity()
 {
-	health = 20;
+	health = 1;
 	this->addSprite("assets/circle.tga");
 	this->sprite()->color = RED;
 }

@@ -13,7 +13,7 @@
 #include "Entity.h"
 #include "City.h"
 
- /// @brief The MyEntity class is the Entity implementation.
+ /// @brief The Enemy implementation.
 class Enemy : public Entity
 {
 public:
@@ -21,7 +21,16 @@ public:
 	Enemy(City* _city);
 	/// @brief Destructor
 	virtual ~Enemy();
+
+	/// <summary>
+	/// the amount of Hit Points the enemy has
+	/// </summary>
 	int health;
+
+	/// <summary>
+	/// the travelling speed of the enemy
+	/// </summary>
+	Point2 speed;
 
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
@@ -30,7 +39,15 @@ public:
 
 private:
 	/* add your private declarations */
+
+	/// <summary>
+	/// city pointer
+	/// </summary>
 	City* _city;
+
+	/// <summary>
+	/// the angle the enemy is suposed to go, in this case the city
+	/// </summary>
 	float targetangle;
 
 };

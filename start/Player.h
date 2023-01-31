@@ -12,7 +12,7 @@
 #include "Entity.h"
 #include "Rocket.h"
 
- /// @brief The MyEntity class is the Entity implementation.
+ /// @brief The Player implementation.
 class Player : public Entity
 {
 public:
@@ -25,15 +25,26 @@ public:
 	/// @brief update is automatically called every frame
 	/// @param deltaTime the elapsed time in seconds
 	/// @return void
-
 	virtual void update(float deltaTime);
+
+	/// <summary>
+	/// list of  rockets
+	/// </summary>
 	std::vector <Rocket*> rockets;
 
 private:
+	/// <summary>
+	/// single rocket
+	/// </summary>
 	Rocket* rocket;
+
+	/// @brief shoot will make your player create a bullet and send them in the direction of the mouse
+	void Shoot();
+
+	/// <summary>
+	/// angle is the direction you are facing
+	/// </summary>
 	float angle;
-	int health;
-	int maxHealth;
 
 	/* add your private declarations */
 };

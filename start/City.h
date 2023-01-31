@@ -12,7 +12,7 @@
 
 #include "Entity.h"
 
- /// @brief The MyEntity class is the Entity implementation.
+ /// @brief The City implementation.
 class City : public Entity
 {
 public:
@@ -21,6 +21,10 @@ public:
 	City();
 	/// @brief Destructor
 	virtual ~City();
+
+	/// <summary>
+	/// the amount of Hit oints the city has
+	/// </summary>
 	int health;
 
 	/// @brief update is automatically called every frame
