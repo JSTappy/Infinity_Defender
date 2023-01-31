@@ -39,10 +39,12 @@ private:
 	/// list of all rockets
 	/// </summary>
 	std::vector <Rocket*> rockets;
+
 	/// <summary>
 	/// list of all enemies
 	/// </summary>
 	std::vector <Enemy*> enemies;
+
 	/// <summary>
 	/// list of all spawners
 	/// </summary>
@@ -60,7 +62,7 @@ private:
 	Rocket* rocket;
 
 	/// <summary>
-	/// the main bas you are protecting
+	/// the main base you are protecting
 	/// </summary>
 	City* city;
 
@@ -90,7 +92,7 @@ private:
 	MyEntity* layer0;
 
 	/// <summary>
-	/// the layer of everything else
+	/// the layer of everything else except text
 	/// </summary>
 	MyEntity* layer1;
 
@@ -100,24 +102,12 @@ private:
 	MyEntity* layer2;
 
 	/// <summary>
-	/// the wave text
-	/// </summary>
-	Text* wavetext;
-
-	/// <summary>
-	/// the wave text
+	/// the health of the city in text
 	/// </summary>
 	Text* cityhealth;
 
-
-
 	/// <summary>
-	/// loading screen (displayed when path is generating)
-	/// </summary>
-	int currentWave;
-
-	/// <summary>
-	/// loading screen (displayed when path is generating)
+	/// the health of the city
 	/// </summary>
 	int cityHealth;
 

@@ -18,10 +18,9 @@ Spawner::Spawner(City* city) : Entity()
 	this->sprite()->color = MAGENTA;
 	this->scale = Point2(1, 1);
 	wave = 0;
-	lobstersPerWave = 1;
-	eelsPerWave = 1;
-	lobstersPerWave = 0;
-	anglerfishPerWave = 0;
+	lobstersPerSpawn = 1;
+	eelsPerSpawn = 1;
+	anglerfishPerSpawn = 0;
 }
 
 Spawner::~Spawner()
@@ -31,24 +30,17 @@ Spawner::~Spawner()
 
 void Spawner::update(float deltaTime)
 {
-	/*if (enemies.size() == 0) {
-
-		spawners[e]->spawnWave();
-		spawners[e]->wave += 1;
-		spawners[e]->lobstersPerWave += 1;
-		spawners[e]->eelsPerWave += 2;
-		spawners[e]->anglerfishPerWave += 1;
-
-		std::cout << this->position << " Currentwave = " << spawners[e]->wave << std::endl;
-		std::cout << this->position << " lobsterperwave = " << spawners[e]->lobstersPerWave << std::endl;
-		std::cout << this->position << " eelsperwave = " << spawners[e]->eelsPerWave << std::endl;
-		std::cout << this->position << " anglerfishperwave = " << spawners[e]->anglerfishPerWave << std::endl;
-	}*/
+	if (enemies.size() == 0) {
+		SpawnEnemies();
+		lobstersPerSpawn += 1;
+		eelsPerSpawn += 2;
+		anglerfishPerSpawn += 1;
+	}
 }
 
-void Spawner::spawnWave()
+void Spawner::SpawnEnemies()
 {
-		for (int i = lobstersPerWave; i >= 1; i--)
+		for (int i = lobstersPerSpawn; i >= 1; i--)
 		{
 			enemy = new Enemy(_city);
 			enemy->addSprite("assets/enemy.tga");
@@ -59,7 +51,7 @@ void Spawner::spawnWave()
 			enemies.push_back(enemy);
 			enemy->position = this->position + random;
 		}
-		for (int i = eelsPerWave; i >= 1; i--)
+		for (int i = eelsPerSpawn; i >= 1; i--)
 		{
 			enemy2 = new Enemy(_city);
 			enemy2->addSprite("assets/enemy2.tga");
@@ -70,7 +62,7 @@ void Spawner::spawnWave()
 			enemy2->speed = Point2(50, 50);
 			enemy2->position = this->position + random;
 		}
-		for (int i = anglerfishPerWave; i >= 1; i--)
+		for (int i = anglerfishPerSpawn; i >= 1; i--)
 		{
 			enemy3 = new Enemy(_city);
 			enemy3->addSprite("assets/enemy3.tga");

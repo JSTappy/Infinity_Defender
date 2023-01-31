@@ -46,22 +46,22 @@ public:
 	/// <summary>
 	/// the amount of lobster enemies (enemy) will appear once the spawners enemy count reaches 0
 	/// </summary>
-	int lobstersPerWave;
+	int lobstersPerSpawn;
 
 	/// <summary>
 	/// the amount of eel enemies (enemy2) will appear once the spawners enemy count reaches 0
 	/// </summary>
-	int eelsPerWave;
+	int eelsPerSpawn;
 
 	/// <summary>
 	/// the amount of anglerfish enemies (enemy3) will appear once the spawners enemy count reaches 0
 	/// </summary>
-	int anglerfishPerWave;
+	int anglerfishPerSpawn;
 
 	/// <summary>
 	/// function to spawn enemies 
 	/// </summary>
-	void spawnWave();
+	void SpawnEnemies();
 
 private:
 	/// <summary>
